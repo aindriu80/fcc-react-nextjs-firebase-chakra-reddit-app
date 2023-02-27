@@ -4,6 +4,8 @@ specifiers:
   '@chakra-ui/react': ^2.5.1
   '@emotion/react': ^11.10.6
   '@emotion/styled': ^11.10.6
+  '@fontsource/open-sans': ^4.5.14
+  '@fontsource/raleway': ^4.5.12
   '@types/node': 18.14.2
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -21,6 +23,8 @@ dependencies:
   '@chakra-ui/react': 2.5.1_llidv3byuxn3l2nsibklt32qgu
   '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
   '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
+  '@fontsource/open-sans': 4.5.14
+  '@fontsource/raleway': 4.5.12
   '@types/node': 18.14.2
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -1744,6 +1748,14 @@ packages:
 
   /@firebase/webchannel-wrapper/0.9.0:
     resolution: {integrity: sha512-BpiZLBWdLFw+qFel9p3Zs1jD6QmH7Ii4aTDu6+vx8ShdidChZUXqDhYJly4ZjSgQh54miXbBgBrk0S+jTIh/Qg==}
+    dev: false
+
+  /@fontsource/open-sans/4.5.14:
+    resolution: {integrity: sha512-mBXIIETBlW8q/ocuUN0hyGow2iuf75hQEHQt8R/RJ/HcphVbLg8KB7pHYGbFGDqs75W+SWvTC7JkVeAjT65BuQ==}
+    dev: false
+
+  /@fontsource/raleway/4.5.12:
+    resolution: {integrity: sha512-uKs13d6NFWU4vf5LSDHK/cbaAw+UXkzz03fKjyvkKq8Nop+CeB6o8STEDkZD9/uOo3v3sgm59Wyw8uGWvxoCiA==}
     dev: false
 
   /@grpc/grpc-js/1.7.3:
