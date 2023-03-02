@@ -2,6 +2,7 @@ import '@fontsource/open-sans/300.css'
 import '@fontsource/open-sans/400.css'
 import '@fontsource/open-sans/500.css'
 import { extendTheme } from '@chakra-ui/react'
+import { Button } from './button'
 
 export const theme = extendTheme({
   color: {
@@ -20,6 +21,6 @@ export const theme = extendTheme({
     }),
   },
   components: {
-    // Button
+    Button,
   },
 })
