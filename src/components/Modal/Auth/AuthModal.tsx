@@ -9,11 +9,13 @@ import {
   ModalFooter,
   useDisclosure,
   Flex,
+  Link,
 } from '@chakra-ui/react'
 import React from 'react'
-
+import { Text } from '@chakra-ui/react'
 import { useRecoilState } from 'recoil'
 import { authModalState } from '@/src/atoms/authModalAtom'
+import AuthInputs from './AuthInputs'
 
 const AuthModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -30,7 +32,7 @@ const AuthModal: React.FC = () => {
       <Modal isOpen={modalState.open} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
+          <ModalHeader textAlign="left">
             {modalState.view === 'login' && 'Login'}
             {modalState.view === 'signup' && 'Sign Up'}
             {modalState.view === 'resetPassword' && 'Reset Password'}
@@ -40,13 +42,28 @@ const AuthModal: React.FC = () => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            justifyContent="center">
+            justifyContent="center"
+            pb={6}>
+            <Text fontSize="sm">
+              By continuing, you agree are setting up a Reddit account and agree
+              to our{' '}
+              <Link color="#0079d3" href="#">
+                User Agreement{' '}
+              </Link>
+              and{' '}
+              <Link color="#0079d3" href="#">
+                Privacy Policy.
+              </Link>
+            </Text>
             <Flex
               direction="column"
               align="center"
               justify="center"
-              border="1px solid red"
-              width="70%"></Flex>
+              width="70%">
+              {/* <OAuthButtons/> */}
+              <AuthInputs />
+              {/* <ResetPasswords/> */}
+            </Flex>
           </ModalBody>
         </ModalContent>
       </Modal>
