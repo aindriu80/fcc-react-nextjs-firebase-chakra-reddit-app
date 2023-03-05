@@ -8,7 +8,7 @@ type LoginProps = {
   // tfcd
 }
 
-const Login: React.FC<LoginProps> = () => {
+const Login: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState)
   const { loginForm, setLoginForm } = useState({
     email: '',
