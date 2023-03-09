@@ -19,6 +19,7 @@ import AuthInputs from './AuthInputs'
 import OAuthButtons from './OAuthButtons'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../../firebase/clientApp'
+import ResetPassword from './ResetPassword'
 
 const AuthModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -52,28 +53,34 @@ const AuthModal: React.FC = () => {
             alignItems="center"
             justifyContent="center"
             pb={6}>
-            <Text fontSize="sm">
-              By continuing, you agree are setting up a Reddit account and agree
-              to our{' '}
-              <Link color="#0079d3" href="#">
-                User Agreement{' '}
-              </Link>
-              and{' '}
-              <Link color="#0079d3" href="#">
-                Privacy Policy.
-              </Link>
-            </Text>
             <Flex
               direction="column"
               align="center"
               justify="center"
-              width="70%">
-              <OAuthButtons />
-              <Text color="gray.500" fontWeight={700}>
-                OR
-              </Text>
-              <AuthInputs />
-              {/* <ResetPasswords/> */}
+              width="90%">
+              {modalState.view === 'login' || modalState.view === 'signup' ? (
+                <>
+                  <Text fontSize="sm">
+                    By continuing, you agree are setting up a Reddit account and
+                    agree to our{' '}
+                    <Link color="#0079d3" href="#">
+                      User Agreement{' '}
+                    </Link>
+                    and{' '}
+                    <Link color="#0079d3" href="#">
+                      Privacy Policy.
+                    </Link>
+                  </Text>
+                  <OAuthButtons />
+                  <Text color="gray.500" fontWeight={700}>
+                    OR
+                  </Text>
+                  <AuthInputs />
+                  {/* <ResetPassword /> */}
+                </>
+              ) : (
+                <ResetPassword />
+              )}
             </Flex>
           </ModalBody>
         </ModalContent>
