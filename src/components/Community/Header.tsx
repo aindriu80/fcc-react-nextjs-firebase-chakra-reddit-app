@@ -7,11 +7,11 @@ import useCommunityData from '../../hooks/useCommunityData'
 type NewType = Community
 
 type HeaderProps = {
-  communityData: NewType
+  communityData: Community
 }
 
 const Header: React.FC<HeaderProps> = ({ communityData }) => {
-  const { communitySateValue, onJoinCommunity } = useCommunityData()
+  const { communitySateValue, onJoinOrLeaveCommunity } = useCommunityData()
   const isJoined = !!communitySateValue.mySnippets.find(
     (item) => item.communityId === communityData.id
   )
