@@ -19,14 +19,22 @@ import { CgProfile } from 'react-icons/cg'
 import { MdOutlineLogin } from 'react-icons/md'
 import { auth } from '@/src/firebase/clientApp'
 import { authModalState } from '@/src/atoms/authModalAtom'
-import { useSetRecoilState } from 'recoil'
+import { useResetRecoilState, useSetRecoilState } from 'recoil'
+import { communityState } from '../../../atoms/communitiesAtom'
 
 type UserMenuProps = {
   user?: User | null
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
+  const resetCommunityState = useResetRecoilState(communityState)
   const setAuthModalState = useSetRecoilState(authModalState)
+
+  const logout = async () => {
+    await signOut(auth)
+    resetCommunityState()
+    // clear community state
+  }
   return (
     <Menu>
       <MenuButton
@@ -70,18 +78,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
       <MenuList>
         {user ? (
           <>
-            <Icon fontSize={24} color="grey.200" mr={1} as={FaRedditSquare} />
-
-            <Flex
-              direction="column"
-              display={{ base: 'none', lg: 'flex' }}
-              fontSize="8pt"
-              align="flex-start"
-              mr={8}>
-              <Text fontWeight={700}>
-                {user?.displayName || user.email?.split('@')[0]}
-              </Text>
-            </Flex>
             <MenuItem
               fontSize="10pt"
               fontWeight={700}
@@ -96,7 +92,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
               fontSize="10pt"
               fontWeight={700}
               _hover={{ bg: '#1483d6', color: 'white' }}
-              onClick={() => signOut(auth)}>
+              onClick={logout}>
               <Flex align="center">
                 <Icon fontSize={20} mr={2} as={MdOutlineLogin} />
                 Log Out
