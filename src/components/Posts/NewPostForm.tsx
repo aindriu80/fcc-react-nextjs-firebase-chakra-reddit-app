@@ -10,7 +10,15 @@ import TextInputs from './PostForm/TextInputs'
 import ImageUpload from './PostForm/ImageUpload'
 import { Post } from '@/src/atoms/postsAtom'
 import { User } from 'firebase/auth'
-import { serverTimestamp, Timestamp } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  Timestamp,
+  updateDoc,
+} from 'firebase/firestore'
+import { firestore, storage } from '@/src/firebase/clientApp'
+import { getDownloadURL, ref } from 'firebase/storage'
 
 type NewPostFormProps = {
   // user?: User | null
@@ -65,12 +73,32 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       numberOfComments: 0,
       voteStatus: 0,
       createdAt: serverTimestamp() as Timestamp,
+      // id: ''
     }
-    // store the post in database
-    // check for selectedFile
-    // store in storage => getDownloadURL (return imageURL)
-    // update post doc by adding imageURL
+
+    setLoading(true)
+    try {
+      // store the post in database
+      const postDocRef = await addDoc(collection(firestore, 'posts'), newPost)
+
+      // check for selectedFile
+      if (selectedFile) {
+        // store in storage => getDownloadURL (return imageURL)
+        const imageRef = ref(storage, `posts/${postDocRef.id}/image`)
+        await uploadImage(imageRef, selectedFile, 'data_url')
+        const downloadURL = await getDownloadURL(imageRef)
+
+        // update post doc by adding imageURL
+        await updateDoc(postDocRef, {
+          imageURL: downloadURL,
+        })
+      }
+    } catch (error: any) {
+      console.log('handleCreatePost error', error.message)
+    }
+    setLoading(false)
     // redirect the user back to the communityPage using the router
+    // router.back()
   }
 
   const onSelectImage = async (event: React.ChangeEvent<HTMLImageElement>) => {
@@ -132,3 +160,6 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   )
 }
 export default NewPostForm
+function uploadImage(imageRef: any, selectedFile: any, arg2: string) {
+  throw new Error('Function not implemented.')
+}
