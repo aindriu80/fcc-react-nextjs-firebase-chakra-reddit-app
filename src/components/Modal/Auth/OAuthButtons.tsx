@@ -5,7 +5,8 @@ import React, { useEffect } from 'react'
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import { auth, firestore } from '../../../firebase/clientApp'
 
-const OAuthButtons: React.FC = () => {
+type OAuthButtonsProps = {};
+const OAuthButtons: React.FC<OAuthButtonsProps> = () => {
   const [signInWithGoogle, userCred, loading, error] = useSignInWithGoogle(auth)
 
   const createUserDocument = async (user: User) => {
