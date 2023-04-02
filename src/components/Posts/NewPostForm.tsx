@@ -27,12 +27,7 @@ import ImageUpload from './PostForm/ImageUpload'
 import TextInputs from './PostForm/TextInputs'
 import TabItem from './TabItem'
 
-type NewPostFormProps = {
-  // user?: User | null
-  user: User
-}
-
-const formTabs: TabItem[] = [
+const formTabs = [
   {
     title: 'Post',
     icon: IoDocumentText,
@@ -60,7 +55,18 @@ export type TabItem = {
   icon: typeof Icon.arguments
 }
 
-const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
+type NewPostFormProps = {
+  // user?: User | null
+  communityId: string
+  communityImageURL?: string
+  user: User
+}
+
+const NewPostForm: React.FC<NewPostFormProps> = ({
+  user,
+  communityId,
+  communityImageURL,
+}) => {
   const router = useRouter()
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title)
   const [loading, setLoading] = useState(false)
@@ -101,13 +107,13 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
           imageURL: downloadURL,
         })
       }
+      // redirect the user back to the communityPage using the router
+      router.back()
     } catch (error: any) {
       console.log('handleCreatePost error', error.message)
       setError(true)
     }
     setLoading(false)
-    // redirect the user back to the communityPage using the router
-    // router.back()
   }
 
   const onSelectImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,16 +144,16 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   return (
     <Flex direction="column" bg="white" borderRadius={4} mt={2}>
       <Flex width="100%">
-        {formTabs.map((item) => (
+        {formTabs.map((item, index) => (
           <TabItem
-            key={item.title}
+            key={index}
             item={item}
             selected={item.title === selectedTab}
             setSelectedTab={setSelectedTab}
           />
         ))}
       </Flex>
-      <Flex p="4px">
+      <Flex p={4}>
         {selectedTab === 'Post' && (
           <TextInputs
             textInputs={textInputs}
