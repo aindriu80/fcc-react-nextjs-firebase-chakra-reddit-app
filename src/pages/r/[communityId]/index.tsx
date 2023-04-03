@@ -57,7 +57,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
   } catch (error) {
     // Possible to add an error page here
-    // console.log('GetServersideProps error', error)
+    console.log('GetServersideProps error', error)
   }
 }
 export default CommunityPage
