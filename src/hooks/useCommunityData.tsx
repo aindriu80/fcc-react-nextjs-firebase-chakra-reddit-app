@@ -22,7 +22,7 @@ const useCommunityData = () => {
   const setAuthModalState = useSetRecoilState(authModalState)
   const [loading, setLoading] = useState('')
   const [error, setError] = useState('')
-  const [communitySateValue, setCommunityStateValue] =
+  const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState)
 
   const onJoinOrLeaveCommunity = (
@@ -139,7 +139,7 @@ const useCommunityData = () => {
 
   return {
     // data and functions
-    communitySateValue,
+    communityStateValue,
     onJoinOrLeaveCommunity,
     loading,
   }

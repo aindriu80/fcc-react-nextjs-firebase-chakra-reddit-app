@@ -11,9 +11,9 @@ type HeaderProps = {
 }
 
 const Header: React.FC<HeaderProps> = ({ communityData }) => {
-  const { communitySateValue, onJoinOrLeaveCommunity, loading } =
+  const { communityStateValue, onJoinOrLeaveCommunity, loading } =
     useCommunityData()
-  const isJoined = !!communitySateValue.mySnippets.find(
+  const isJoined = !!communityStateValue.mySnippets.find(
     (item) => item.communityId === communityData.id
   )
   return (
@@ -21,8 +21,17 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
       <Box height="50%" bg="blue.400" />
       <Flex justify="center" bg="white" flexGrow={1}>
         <Flex width="95%" maxWidth="860px">
-          {communityData.imageURL ? (
-            <Image />
+          {communityStateValue.currentCommunity?.imageURL ? (
+            <Image
+              borderRadius="full"
+              boxSize="66px"
+              src={communityStateValue.currentCommunity.imageURL}
+              alt="Dan Abramov"
+              position="relative"
+              top={-3}
+              color="blue.500"
+              border="4px solid white"
+            />
           ) : (
             <Icon
               as={FaReddit}
@@ -31,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
               top={-3}
               color="blue.500"
               border="4px solid white"
-              borderRadius="full"
+              borderRadius="50%"
             />
           )}
           <Flex padding="10px 16px">
@@ -43,6 +52,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
                 r/{communityData.id}
               </Text>
             </Flex>
+            <Flex>
             <Button
               variant={isJoined ? 'outline' : 'solid'}
               height="30px"
@@ -52,6 +62,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
               onClick={() => onJoinOrLeaveCommunity(communityData, isJoined)}>
               {isJoined ? 'Joined' : 'Join'}
             </Button>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
