@@ -42,11 +42,11 @@ const CommentItem: React.FC<CommentItemProps> = ({
           <Text color="gray.600">
             {moment(new Date(comment.createdAt.seconds * 1000)).fromNow()}
           </Text>
-          {!loadingDelete && <Spinner size="sm" />}
+          {loadingDelete && <Spinner size="sm" />}
         </Stack>
         <Text fontSize="10pt">{comment.text}</Text>
         <Stack direction="row" align="center" cursor="pointer" color="gray.500">
-          <Icon as={IoArrowDownCircleOutline} />
+          <Icon as={IoArrowUpCircleOutline} />
           <Icon as={IoArrowDownCircleOutline} />
           {userId === comment.creatorId && (
             <>
