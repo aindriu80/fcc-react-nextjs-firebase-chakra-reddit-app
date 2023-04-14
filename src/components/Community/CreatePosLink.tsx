@@ -1,4 +1,5 @@
 import { authModalState } from '@/src/atoms/authModalAtom'
+import useDirectory from '@/src/hooks/useDirectory'
 import { Flex, Icon, Input } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -16,6 +17,7 @@ const CreatePostLink: React.FC<CreatePostProps> = () => {
   const router = useRouter()
   const [user] = useAuthState(auth)
   const setAuthModalState = useSetRecoilState(authModalState)
+  const { toggleMenuOpen } = useDirectory()
 
   const onClick = () => {
     if (!user) {
@@ -23,7 +25,13 @@ const CreatePostLink: React.FC<CreatePostProps> = () => {
       return
     }
     const { communityId } = router.query
-    router.push(`/r/${router.query.communityId}/submit`)
+
+    if (communityId) {
+      router.push(`/r/${router.query.communityId}/submit`)
+      return
+    }
+    // open our directory menu
+    toggleMenuOpen()
   }
   return (
     <Flex
