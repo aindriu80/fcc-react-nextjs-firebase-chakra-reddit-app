@@ -176,18 +176,6 @@ const Comments: React.FC<CommentsProps> = ({
         ) : (
           <>
             {comments.length === 0 ? (
-              <Flex
-                direction="column"
-                justify="center"
-                align="center"
-                borderTop="1px solid"
-                borderColor="gray.100"
-                p={20}>
-                <Text fontWeight={700} opacity={0.3}>
-                  No Comments Yet
-                </Text>
-              </Flex>
-            ) : (
               <>
                 {comments.map((comment) => (
                   <CommentItem
@@ -199,6 +187,18 @@ const Comments: React.FC<CommentsProps> = ({
                   />
                 ))}
               </>
+            ) : (
+              <Flex
+                direction="column"
+                justify="center"
+                align="center"
+                borderTop="1px solid"
+                borderColor="gray.100"
+                p={20}>
+                <Text fontWeight={700} opacity={0.3}>
+                  No Comments Yet
+                </Text>
+              </Flex>
             )}
           </>
         )}
