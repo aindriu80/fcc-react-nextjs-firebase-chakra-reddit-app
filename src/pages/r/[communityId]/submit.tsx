@@ -13,13 +13,19 @@ const SubmitPostPage: React.FC = () => {
   // const communityStateValue = useRecoilValue(communityState)
   const { communityStateValue } = useCommunityData()
   console.log(`community`, communityStateValue)
+
   return (
     <PageContent>
       <>
         <Box p="14px 0px" borderBottom="1px solid" borderColor="white">
           <Text>Create a post</Text>
         </Box>
-        {user && <NewPostForm user={user} />}
+        {user && (
+          <NewPostForm
+            user={user}
+            communityImageURL={communityStateValue.currentCommunity.imageURL}
+          />
+        )}
       </>
       <>
         {communityStateValue.currentCommunity && (

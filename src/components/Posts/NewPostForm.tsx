@@ -80,6 +80,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
     // create the new post object => type Post
     const newPost: Post = {
       communityId: communityId as string,
+      communityImageURL: communityImageURL || '',
       creatorId: user?.uid,
       creatorDisplayName: user.email!.split('@')[0],
       title: textInputs.title,

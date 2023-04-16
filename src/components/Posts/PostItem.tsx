@@ -27,12 +27,12 @@ import moment from 'moment'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-type PostItemProps = {
+export type PostItemProps = {
   post: Post
   userIsCreator: boolean
   userVoteValue?: number
   onVote: (
-    event: React.MouseEvent<SVGAElement, MouseEvent>,
+    event: React.MouseEvent<SVGElement, MouseEvent>,
     post: Post,
     vote: number,
     communityId: string
@@ -110,7 +110,7 @@ const PostItem: React.FC<PostItemProps> = ({
               ? IoArrowDownCircleSharp
               : IoArrowDownCircleOutline
           }
-          color={userVoteValue === -1 ? '#4379ff' : 'gray.400'}
+          color={userVoteValue === -1 ? '#4379FF' : 'gray.400'}
           fontSize={22}
           onClick={(event) => onVote(event, post, -1, post.communityId)}
           cursor="pointer"
@@ -135,18 +135,20 @@ const PostItem: React.FC<PostItemProps> = ({
                     borderRadius="full"
                     boxSize="18px"
                     mr={2}
-                    // alt={post.communityId}
+                    alt={post.communityId}
                   />
                 ) : (
-                  <Icon as={FaReddit} fontSize="18pt" mr={1} color="blue.500" />
+                  <Icon as={FaReddit} fontSize={18} mr={1} color="blue.500" />
                 )}
-
                 <Link href={`r/${post.communityId}`}>
                   <Text
                     fontWeight={700}
                     _hover={{
                       textDecoration: 'underline',
-                    }}>{`r/${post.communityId}`}</Text>
+                    }}
+                    onClick={(event) =>
+                      event.stopPropagation()
+                    }>{`r/${post.communityId}`}</Text>
                 </Link>
                 <Icon as={BsDot} color="gray.500" fontSize={8} />
               </>
@@ -156,7 +158,7 @@ const PostItem: React.FC<PostItemProps> = ({
               {moment(new Date(post.createdAt?.seconds * 1000)).fromNow()}
             </Text>
           </Stack>
-          <Text fontSize="12pt" fontWeight="600">
+          <Text fontSize="12pt" fontWeight={600}>
             {post.title}
           </Text>
           <Text fontSize="12px">{post.body}</Text>
