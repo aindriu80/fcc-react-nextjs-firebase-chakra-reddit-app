@@ -50,7 +50,6 @@ const useCommunityData = () => {
 
   const getMySnippets = async () => {
     setLoading(true)
-
     try {
       // get users snippets
       const snippetDocs = await getDocs(
@@ -60,6 +59,7 @@ const useCommunityData = () => {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: snippets as CommunitySnippet[],
+        snippetsFetched: true,
       }))
       // console.log('Here are the snippets', snippets)
     } catch (error: any) {
@@ -158,6 +158,7 @@ const useCommunityData = () => {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: [],
+        snippetsFetched: false,
       }))
       return
     }
