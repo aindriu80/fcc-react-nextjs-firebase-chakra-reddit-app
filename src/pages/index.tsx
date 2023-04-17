@@ -1,6 +1,7 @@
 import { Stack } from '@chakra-ui/react'
 import {
   collection,
+  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -20,6 +21,8 @@ import PostLoader from '../components/Posts/PostLoader'
 import { auth, firestore } from '../firebase/clientApp'
 import useCommunityData from '../hooks/useCommunityData'
 import usePosts from '../hooks/usePosts'
+import { useRouter } from 'next/router'
+import useDirectory from '../hooks/useDirectory'
 
 const Home: NextPage = () => {
   const [user, loadingUser] = useAuthState(auth)
@@ -34,6 +37,7 @@ const Home: NextPage = () => {
   const { communityStateValue } = useCommunityData()
 
   const buildUserHomeFeed = async () => {
+    console.log('GETTING USER FEED')
     // fetch some posts from each community that the user is in
     setLoading(true)
     try {
@@ -44,7 +48,7 @@ const Home: NextPage = () => {
         )
         const postQuery = query(
           collection(firestore, 'posts'),
-          where('communityID', 'in', myCommunitiesIds),
+          where('communityId', 'in', myCommunitiesIds),
           limit(10)
         )
         const postDocs = await getDocs(postQuery)
@@ -85,7 +89,18 @@ const Home: NextPage = () => {
     setLoading(false)
   }
 
-  const getUserPostVotes = () => {}
+  const getUserPostVotes = async () => {
+    try {
+      const postIds = postStateValue.posts.map((post) => post.id)
+      const postVotesQuery = query(
+        collection(firestore, `users/${user?.uid}/postVotes`),where('postId', 'in', postIds))
+        const postVoteDocs = await getDocs(postVotesQuery)
+        const postVotes = postVoteDocs.docs.map(doc => ({id: doc.id, ...doc}))
+      )
+    } catch (error) {
+      console.log('getUserPostVotes', error)
+    }
+  }
 
   // useEffects
 
@@ -96,6 +111,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (!user && !loadingUser) buildNoUserHomeField()
   }, [user, loadingUser])
+
+  useEffect(() => {
+    if (user && postStateValue.posts.length) getUserPostVotes()
+  }, [user, postStateValue.posts])
 
   return (
     <PageContent>
