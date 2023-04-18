@@ -23,6 +23,10 @@ import useCommunityData from '../hooks/useCommunityData'
 import usePosts from '../hooks/usePosts'
 import { useRouter } from 'next/router'
 import useDirectory from '../hooks/useDirectory'
+import Recommendations from '../components/Community/Recommendations'
+
+import Premium from '../components/Community/Premium'
+import PersonalHome from '../components/Community/PersonalHome'
 
 const Home: NextPage = () => {
   const [user, loadingUser] = useAuthState(auth)
@@ -159,7 +163,11 @@ const Home: NextPage = () => {
           </Stack>
         )}
       </>
-      <>{/* Recommendations  */}</>
+      <Stack spacing={5} position="sticky" top="14px">
+        <Recommendations />
+        <Premium />
+        <PersonalHome />
+      </Stack>
     </PageContent>
   )
 }
